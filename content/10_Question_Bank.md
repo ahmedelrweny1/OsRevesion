@@ -2,7 +2,7 @@
 
 ## How to Use This Section
 This question bank covers all topics in the OS syllabus and is organized to help you test your understanding of the core concepts:
-- **Part 1 — Multiple Choice (MCQ):** Questions organized by chapter.
+- **Part 1 — Multiple Choice (MCQ):** 40+ questions organized by chapter.
 - **Part 2 — True or False:** Quick statements to test your intuition.
 - **Part 3 — Scheduling Problems:** Fully worked CPU scheduling math problems with Gantt charts.
 
@@ -22,7 +22,7 @@ This question bank covers all topics in the OS syllabus and is organized to help
 - D) To render graphics
 
 <details><summary>✅ Answer</summary>
-**B) To manage hardware resources and provide services for applications** — The OS is an intermediary between the user and hardware, allocating resources like CPU and memory.
+**B) To manage hardware resources and provide services for applications**
 </details>
 
 **Q2.** The purpose of dual-mode operation (user mode and kernel mode) is to:
@@ -45,45 +45,95 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **D) Compiling code** — A compiler is a separate application program, not an OS service.
 </details>
 
+**Q4.** A system that allows multiple jobs to be in memory at the same time, keeping the CPU always busy, is called:
+- A) Multiprocessing
+- B) Multiprogramming
+- C) Multithreading
+- D) Time-sharing
+
+<details><summary>✅ Answer</summary>
+**B) Multiprogramming** — Multiprogramming increases CPU utilization by organizing jobs so that the CPU always has one to execute.
+</details>
+
+**Q5.** Which of the following handles the transition from user mode to kernel mode?
+- A) A software interrupt (trap) or hardware interrupt
+- B) A compiler directive
+- C) An infinite loop
+- D) A standard function call
+
+<details><summary>✅ Answer</summary>
+**A) A software interrupt (trap) or hardware interrupt** — When an interrupt occurs, the hardware switches from user mode to kernel mode.
+</details>
+
+**Q6.** The concept of "time-sharing" is a logical extension of:
+- A) Multiprocessing
+- B) Multiprogramming
+- C) Batch processing
+- D) Single-user systems
+
+<details><summary>✅ Answer</summary>
+**B) Multiprogramming** — Time-sharing (multitasking) is multiprogramming where the CPU switches between jobs so frequently that users can interact with each program while it is running.
+</details>
+
 ---
 
 ### 📘 Chapter 2: OS Structures
 
-**Q4.** A system call is typically invoked through a:
+**Q7.** A system call is typically invoked through a:
 - A) Hardware interrupt
 - B) Software interrupt (trap)
 - C) Reboot sequence
 - D) Direct memory access (DMA)
 
 <details><summary>✅ Answer</summary>
-**B) Software interrupt (trap)** — Programs execute a special instruction to trigger a trap, switching the CPU to kernel mode to perform the OS service.
+**B) Software interrupt (trap)**
 </details>
 
-**Q5.** The system call interface maintains a table indexed by:
+**Q8.** The system call interface maintains a table indexed by:
 - A) Process IDs
 - B) System call numbers
 - C) Memory addresses
 - D) File sizes
 
 <details><summary>✅ Answer</summary>
-**B) System call numbers** — Each system call (like read, write, exit) is assigned a unique number. The table maps these numbers to the kernel implementation.
+**B) System call numbers** — Each system call is assigned a unique number.
 </details>
 
-**Q6.** Which of the following is NOT a category of system calls?
+**Q9.** Which of the following is NOT a category of system calls?
 - A) Process control
 - B) File management
 - C) Application UI design
 - D) Device management
 
 <details><summary>✅ Answer</summary>
-**C) Application UI design** — The categories include process control, file management, device management, information maintenance, communications, and protection.
+**C) Application UI design**
+</details>
+
+**Q10.** The OS provides a higher-level programming interface to access system calls known as:
+- A) API (Application Programming Interface)
+- B) CPU registers
+- C) Device drivers
+- D) Graphical User Interface (GUI)
+
+<details><summary>✅ Answer</summary>
+**A) API** — An API function may internally invoke multiple system calls on behalf of the programmer, abstracting away the low-level details.
+</details>
+
+**Q11.** Which system call category includes creating and terminating processes?
+- A) Device Management
+- B) Information Maintenance
+- C) Process Control
+- D) Communications
+
+<details><summary>✅ Answer</summary>
+**C) Process Control**
 </details>
 
 ---
 
 ### 📘 Chapter 3: Processes
 
-**Q7.** Which of the following is NOT a valid process state?
+**Q12.** Which of the following is NOT a valid process state?
 - A) Ready
 - B) Waiting
 - C) Compiling
@@ -93,7 +143,7 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **C) Compiling** — The five standard process states are: New, Ready, Running, Waiting, and Terminated.
 </details>
 
-**Q8.** What does the Process Control Block (PCB) store?
+**Q13.** What does the Process Control Block (PCB) store?
 - A) The source code of the program
 - B) Process state, program counter, CPU registers, and scheduling info
 - C) User passwords
@@ -103,7 +153,7 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **B)** — The PCB is the data structure the OS uses to represent and track a process.
 </details>
 
-**Q9.** Context switching involves:
+**Q14.** Context switching involves:
 - A) Deleting the old process
 - B) Saving the state of the current process and loading the state of the next process
 - C) Re-compiling the program
@@ -113,11 +163,51 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **B)** — During a context switch, the OS saves the PCB of the current process and restores the PCB of the next process to be scheduled. This takes time and is considered overhead.
 </details>
 
+**Q15.** When a process is waiting for an I/O event to complete, what state is it in?
+- A) Ready
+- B) Running
+- C) Waiting (Blocked)
+- D) Terminated
+
+<details><summary>✅ Answer</summary>
+**C) Waiting (Blocked)**
+</details>
+
+**Q16.** The Ready Queue contains processes that:
+- A) Are waiting for an I/O device
+- B) Have completed their execution
+- C) Reside in main memory and are waiting to execute on the CPU
+- D) Are currently executing on the CPU
+
+<details><summary>✅ Answer</summary>
+**C)** — Processes in the ready queue are fully loaded in memory and are just waiting for the CPU scheduler to pick them.
+</details>
+
+**Q17.** A zombie process is:
+- A) A process that consumes all CPU time
+- B) A terminated process whose parent has not yet collected its exit status
+- C) A process that has no memory allocated to it
+- D) A process running in an infinite loop
+
+<details><summary>✅ Answer</summary>
+**B)** — A zombie process has finished execution but still has an entry in the process table because its parent hasn't collected its exit status.
+</details>
+
+**Q18.** An orphan process is:
+- A) A process whose parent has terminated before it
+- B) A process that has no memory allocated to it
+- C) A process running in an infinite loop
+- D) A process that consumes all CPU time
+
+<details><summary>✅ Answer</summary>
+**A)** — When a parent terminates without collecting the child's status, the child becomes an orphan and is typically adopted by the init process.
+</details>
+
 ---
 
 ### 📘 Chapter 4: Threads & Concurrency
 
-**Q10.** The main difference between a process and a thread is that:
+**Q19.** The main difference between a process and a thread is that:
 - A) Threads cannot run on multiple cores
 - B) Threads share the memory and resources of their parent process
 - C) Processes are faster to create
@@ -127,7 +217,7 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **B) Threads share the memory and resources of their parent process** — While processes have entirely separate address spaces, threads within the same process share code, data, and open files.
 </details>
 
-**Q11.** Distributing subsets of the same data across multiple cores and performing the same operation on each is called:
+**Q20.** Distributing subsets of the same data across multiple cores and performing the same operation on each is called:
 - A) Task parallelism
 - B) Data parallelism
 - C) Serial execution
@@ -137,7 +227,7 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **B) Data parallelism** — For example, splitting a large array into four chunks and having four threads process them simultaneously. Task parallelism is when different threads perform completely different tasks.
 </details>
 
-**Q12.** In the Many-to-One multithreading model:
+**Q21.** In the Many-to-One multithreading model:
 - A) Each user thread maps to its own kernel thread
 - B) Many user threads map to a single kernel thread
 - C) There are no kernel threads
@@ -147,11 +237,41 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **B)** — In Many-to-One, if one user thread makes a blocking system call, all threads are blocked because there is only one kernel thread handling them.
 </details>
 
+**Q22.** Which of the following is NOT a benefit of multithreading?
+- A) Resource sharing
+- B) Economy (cheaper than creating processes)
+- C) Increased memory isolation between threads
+- D) Responsiveness
+
+<details><summary>✅ Answer</summary>
+**C) Increased memory isolation between threads** — Threads actually *share* memory; they do not isolate memory from one another.
+</details>
+
+**Q23.** The One-to-One multithreading model provides:
+- A) Better concurrency than the Many-to-One model
+- B) Less concurrency than the Many-to-One model
+- C) No kernel threads
+- D) Only a single user thread
+
+<details><summary>✅ Answer</summary>
+**A) Better concurrency** — Because each user thread maps to its own kernel thread, one thread blocking does not block the others.
+</details>
+
+**Q24.** Implicit threading means:
+- A) Programmers must manually write code to create and manage each thread
+- B) The compiler and libraries automatically manage thread creation and synchronization
+- C) Threads are completely hidden from the CPU
+- D) Only kernel threads are used
+
+<details><summary>✅ Answer</summary>
+**B)** — Implicit threading hides the complexity of multithreading from the programmer by relying on compilers and libraries (e.g., OpenMP).
+</details>
+
 ---
 
 ### 📘 Chapter 5 & 6: CPU Scheduling
 
-**Q13.** The CPU scheduler is also known as the:
+**Q25.** The CPU scheduler is also known as the:
 - A) Long-term scheduler
 - B) Short-term scheduler
 - C) Disk scheduler
@@ -161,17 +281,17 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **B) Short-term scheduler** — It selects which process should execute next from the ready queue and allocates the CPU to it.
 </details>
 
-**Q14.** Preemptive scheduling means:
+**Q26.** Preemptive scheduling means:
 - A) A process runs until it voluntarily yields the CPU
 - B) The OS can forcibly take the CPU away from a running process
 - C) Only the longest jobs get the CPU
 - D) Processes cannot be interrupted
 
 <details><summary>✅ Answer</summary>
-**B) The OS can forcibly take the CPU away from a running process** — This usually happens when a timer interrupt goes off (like in Round Robin) or a higher priority process arrives.
+**B)** — This usually happens when a timer interrupt goes off (like in Round Robin) or a higher priority process arrives.
 </details>
 
-**Q15.** Which algorithm minimizes average waiting time but is difficult to implement because it requires knowing the future burst length?
+**Q27.** Which algorithm minimizes average waiting time but is difficult to implement because it requires knowing the future burst length?
 - A) First-Come, First-Served (FCFS)
 - B) Shortest Job First (SJF)
 - C) Round Robin (RR)
@@ -181,7 +301,7 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **B) Shortest Job First (SJF)** — SJF is provably optimal for minimizing average waiting time, but predicting the exact length of the next CPU burst is challenging.
 </details>
 
-**Q16.** Aging is used to prevent:
+**Q28.** Aging is used to prevent:
 - A) Thrashing
 - B) Starvation
 - C) Context switching
@@ -191,11 +311,61 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **B) Starvation** — Aging gradually increases the priority of a process the longer it waits in the ready queue, ensuring that low-priority processes eventually get to run.
 </details>
 
+**Q29.** In Round Robin (RR) scheduling, if the time quantum is extremely large, the algorithm behaves exactly like:
+- A) Shortest Job First (SJF)
+- B) First-Come, First-Served (FCFS)
+- C) Priority Scheduling
+- D) Shortest Remaining Time First (SRTF)
+
+<details><summary>✅ Answer</summary>
+**B) FCFS** — If the time quantum is larger than the longest CPU burst, no process will ever be preempted, so it behaves just like FCFS.
+</details>
+
+**Q30.** The time from the submission of a process to its completion is called:
+- A) Waiting time
+- B) Response time
+- C) Turnaround time
+- D) CPU utilization
+
+<details><summary>✅ Answer</summary>
+**C) Turnaround time** — Turnaround time is the total time spent waiting to get into memory, waiting in the ready queue, executing on the CPU, and doing I/O.
+</details>
+
+**Q31.** The time it takes for the dispatcher to stop one process and start another running is known as:
+- A) Turnaround time
+- B) Dispatch latency
+- C) CPU burst
+- D) Response time
+
+<details><summary>✅ Answer</summary>
+**B) Dispatch latency** — This is pure overhead that system designers try to minimize.
+</details>
+
+**Q32.** First-Come, First-Served (FCFS) scheduling can suffer from:
+- A) The Convoy Effect
+- B) Starvation
+- C) Excessive context switching
+- D) High dispatch latency
+
+<details><summary>✅ Answer</summary>
+**A) The Convoy Effect** — Short processes get stuck waiting behind a long process, severely decreasing average waiting time.
+</details>
+
+**Q33.** Shortest Remaining Time First (SRTF) is the preemptive version of:
+- A) FCFS
+- B) SJF
+- C) Priority Scheduling
+- D) Round Robin
+
+<details><summary>✅ Answer</summary>
+**B) SJF** — If a new process arrives with a CPU burst shorter than the remaining time of the currently executing process, the current process is preempted.
+</details>
+
 ---
 
 ### 📘 Chapter 7 & 8: Memory Management & Deadlocks
 
-**Q17.** Virtual memory allows:
+**Q34.** Virtual memory allows:
 - A) The CPU to run twice as fast
 - B) The execution of processes that are larger than the physical RAM
 - C) The hard drive to spin faster
@@ -205,7 +375,7 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **B)** — By keeping only the actively used "pages" of a program in RAM and swapping the rest to the disk, virtual memory creates the illusion of infinite memory.
 </details>
 
-**Q18.** Which of the following is NOT one of the four necessary conditions for a deadlock?
+**Q35.** Which of the following is NOT one of the four necessary conditions for a deadlock?
 - A) Mutual exclusion
 - B) Hold and wait
 - C) Preemption
@@ -213,6 +383,26 @@ This question bank covers all topics in the OS syllabus and is organized to help
 
 <details><summary>✅ Answer</summary>
 **C) Preemption** — The condition is actually **No Preemption** (resources cannot be forcibly taken). If preemption is allowed, deadlocks can be resolved.
+</details>
+
+**Q36.** Paging is a memory management scheme that:
+- A) Eliminates the need for contiguous allocation of physical memory
+- B) Guarantees no deadlocks will occur
+- C) Prevents all page faults
+- D) Only works for kernel threads
+
+<details><summary>✅ Answer</summary>
+**A)** — Paging divides physical memory into fixed-size frames and logical memory into pages, allowing non-contiguous allocation.
+</details>
+
+**Q37.** In the context of deadlocks, "Hold and Wait" means:
+- A) A process is holding at least one resource and waiting to acquire additional resources held by other processes
+- B) A process holds the CPU and waits for a user
+- C) The OS holds all memory and waits for a reboot
+- D) A thread is holding its PCB and waiting for I/O
+
+<details><summary>✅ Answer</summary>
+**A)** — This is one of the four necessary conditions for deadlock.
 </details>
 
 ---
@@ -237,16 +427,24 @@ This question bank covers all topics in the OS syllabus and is organized to help
 **T/F 6.** The time it takes for the dispatcher to stop one process and start another is called "Dispatch Latency".
 <details><summary>✅ Answer</summary>**True** — This is pure overhead that system designers try to minimize.</details>
 
----
+**T/F 7.** The OS sits between application programs and the computer hardware.
+<details><summary>✅ Answer</summary>**True** — The OS acts as the critical middle layer that abstracts hardware complexity.</details>
+
+**T/F 8.** Each thread within a process has its own program counter, stack, and register set.
+<details><summary>✅ Answer</summary>**True** — While threads share code and data, they must have their own execution state (stack and registers).</details>
+
+**T/F 9.** Priority scheduling can lead to starvation if a continuous stream of higher priority processes arrive.
+<details><summary>✅ Answer</summary>**True** — This is why aging (gradually increasing a waiting process's priority) is used.</details>
+
+**T/F 10.** A deadlock can occur even if the "Circular Wait" condition is prevented.
+<details><summary>✅ Answer</summary>**False** — Deadlock requires ALL four conditions to be met simultaneously. If you break one, you prevent deadlock.</details>
 
 
 ## Part 3: Scheduling Problems (Fully Worked)
 
-## Part 4: Scheduling Problems (Fully Worked)
-
 ---
 
-### 📊 Problem 1: FCFS (First-Come, First-Served)
+### ≡ƒôè Problem 1: FCFS (First-Come, First-Served)
 
 **Problem Statement:**
 
@@ -261,15 +459,15 @@ Consider the following set of processes with their arrival times and CPU burst t
 
 **Using FCFS scheduling, calculate the Gantt chart, waiting time, and turnaround time for each process.**
 
-<details><summary>✅ Answer</summary>
+<details><summary>Γ£à Answer</summary>
 
 **Step 1: Determine the order of execution**
 
 FCFS serves processes in the order they arrive:
-- P1 arrives at time 0 → runs first
-- P2 arrives at time 1 → runs second
-- P3 arrives at time 2 → runs third
-- P4 arrives at time 3 → runs fourth
+- P1 arrives at time 0 ΓåÆ runs first
+- P2 arrives at time 1 ΓåÆ runs second
+- P3 arrives at time 2 ΓåÆ runs third
+- P4 arrives at time 3 ΓåÆ runs fourth
 
 **Step 2: Gantt Chart**
 
@@ -289,25 +487,25 @@ FCFS serves processes in the order they arrive:
 
 **Step 4: Calculate Turnaround Times**
 
-Turnaround Time = Completion Time − Arrival Time
+Turnaround Time = Completion Time ΓêÆ Arrival Time
 
 | Process | Completion | Arrival | Turnaround Time |
 |---------|-----------|---------|-----------------|
-| P1      | 8         | 0       | 8 − 0 = **8**  |
-| P2      | 12        | 1       | 12 − 1 = **11**|
-| P3      | 21        | 2       | 21 − 2 = **19**|
-| P4      | 26        | 3       | 26 − 3 = **23**|
+| P1      | 8         | 0       | 8 ΓêÆ 0 = **8**  |
+| P2      | 12        | 1       | 12 ΓêÆ 1 = **11**|
+| P3      | 21        | 2       | 21 ΓêÆ 2 = **19**|
+| P4      | 26        | 3       | 26 ΓêÆ 3 = **23**|
 
 **Step 5: Calculate Waiting Times**
 
-Waiting Time = Turnaround Time − Burst Time
+Waiting Time = Turnaround Time ΓêÆ Burst Time
 
 | Process | Turnaround | Burst | Waiting Time    |
 |---------|-----------|-------|-----------------|
-| P1      | 8         | 8     | 8 − 8 = **0**  |
-| P2      | 11        | 4     | 11 − 4 = **7** |
-| P3      | 19        | 9     | 19 − 9 = **10**|
-| P4      | 23        | 5     | 23 − 5 = **18**|
+| P1      | 8         | 8     | 8 ΓêÆ 8 = **0**  |
+| P2      | 11        | 4     | 11 ΓêÆ 4 = **7** |
+| P3      | 19        | 9     | 19 ΓêÆ 9 = **10**|
+| P4      | 23        | 5     | 23 ΓêÆ 5 = **18**|
 
 **Step 6: Calculate Averages**
 
@@ -328,7 +526,7 @@ Waiting Time = Turnaround Time − Burst Time
 
 ---
 
-### 📊 Problem 2: SJF Non-Preemptive (Shortest Job First)
+### ≡ƒôè Problem 2: SJF Non-Preemptive (Shortest Job First)
 
 **Problem Statement:**
 
@@ -343,13 +541,13 @@ Consider the following set of processes:
 
 **Using non-preemptive SJF scheduling, calculate the Gantt chart, waiting time, and turnaround time for each process.**
 
-<details><summary>✅ Answer</summary>
+<details><summary>Γ£à Answer</summary>
 
 **Step 1: Execution trace (non-preemptive SJF)**
 
 - **Time 0:** Only P1 has arrived (AT=0). P1 starts running. Burst = 7.
 - **Time 7:** P1 finishes. Ready queue contains: P2 (BT=4, arrived at 2), P3 (BT=1, arrived at 4), P4 (BT=4, arrived at 5). Shortest burst = P3 (BT=1). **P3 runs.**
-- **Time 8:** P3 finishes. Ready queue: P2 (BT=4), P4 (BT=4). Tie → use FCFS (P2 arrived first). **P2 runs.**
+- **Time 8:** P3 finishes. Ready queue: P2 (BT=4), P4 (BT=4). Tie ΓåÆ use FCFS (P2 arrived first). **P2 runs.**
 - **Time 12:** P2 finishes. Ready queue: P4 (BT=4). **P4 runs.**
 - **Time 16:** P4 finishes. All done.
 
@@ -362,7 +560,7 @@ Consider the following set of processes:
 
 **Step 3: Calculate all metrics**
 
-| Process | AT | BT | CT | TAT = CT−AT | WT = TAT−BT |
+| Process | AT | BT | CT | TAT = CTΓêÆAT | WT = TATΓêÆBT |
 |---------|----|----|-----|-------------|--------------|
 | P1      | 0  | 7  | 7   | 7           | 0            |
 | P2      | 2  | 4  | 12  | 10          | 6            |
@@ -384,13 +582,13 @@ Consider the following set of processes:
 | P4      | 5  | 4  | 16  | 11  | 7  |
 | **Avg** |    |    |     | **8.0** | **4.0** |
 
-> 💡 Compare this to FCFS for the same data: SJF gives lower average waiting time, confirming SJF is optimal for minimizing average waiting time.
+> ≡ƒÆí Compare this to FCFS for the same data: SJF gives lower average waiting time, confirming SJF is optimal for minimizing average waiting time.
 
 </details>
 
 ---
 
-### 📊 Problem 3: SRTF (Shortest Remaining Time First — Preemptive SJF)
+### ≡ƒôè Problem 3: SRTF (Shortest Remaining Time First ΓÇö Preemptive SJF)
 
 **Problem Statement:**
 
@@ -406,7 +604,7 @@ Consider the following set of processes:
 
 **Using SRTF (Preemptive SJF) scheduling, show the step-by-step execution trace, Gantt chart, and calculate all metrics.**
 
-<details><summary>✅ Answer</summary>
+<details><summary>Γ£à Answer</summary>
 
 **Step-by-step execution trace at each time unit:**
 
@@ -415,15 +613,15 @@ Consider the following set of processes:
 | 0    | P1 arrives | P1:8 | P1 | P1 starts (only process) |
 | 1    | P2 arrives | P1:7, P2:4 | P2 | P2 preempts P1 (4 < 7) |
 | 2    | P3 arrives | P1:7, P2:3, P3:2 | P3 | P3 preempts P2 (2 < 3) |
-| 3    | P4 arrives | P1:7, P2:3, P3:1, P4:1 | P3 | P3 continues (remaining 1 ≤ P4's 1, no preemption) |
+| 3    | P4 arrives | P1:7, P2:3, P3:1, P4:1 | P3 | P3 continues (remaining 1 Γëñ P4's 1, no preemption) |
 | 4    | P3 done, P5 arrives | P1:7, P2:3, P4:1, P5:3 | P4 | P4 runs (shortest remaining = 1) |
 | 5    | P4 done | P1:7, P2:3, P5:3 | P2 | P2 runs (tie: P2 arrived first, both have 3) |
-| 6    | — | P1:7, P2:2, P5:3 | P2 | P2 continues |
-| 7    | — | P1:7, P2:1, P5:3 | P2 | P2 continues |
+| 6    | ΓÇö | P1:7, P2:2, P5:3 | P2 | P2 continues |
+| 7    | ΓÇö | P1:7, P2:1, P5:3 | P2 | P2 continues |
 | 8    | P2 done | P1:7, P5:3 | P5 | P5 runs (3 < 7) |
-| 9–10 | — | P1:7, P5:2→1 | P5 | P5 continues |
+| 9ΓÇô10 | ΓÇö | P1:7, P5:2ΓåÆ1 | P5 | P5 continues |
 | 11   | P5 done | P1:7 | P1 | P1 runs |
-| 11–18| — | P1:7→0 | P1 | P1 runs to completion |
+| 11ΓÇô18| ΓÇö | P1:7ΓåÆ0 | P1 | P1 runs to completion |
 
 **Gantt Chart:**
 
@@ -434,7 +632,7 @@ Consider the following set of processes:
 
 **Calculations:**
 
-| Process | AT | BT | CT  | TAT = CT−AT | WT = TAT−BT |
+| Process | AT | BT | CT  | TAT = CTΓêÆAT | WT = TATΓêÆBT |
 |---------|----|----|-----|-------------|--------------|
 | P1      | 0  | 8  | 18  | 18          | 10           |
 | P2      | 1  | 4  | 8   | 7           | 3            |
@@ -458,13 +656,13 @@ Consider the following set of processes:
 | P5      | 4  | 3  | 11  | 7   | 4  |
 | **Avg** |    |    |     | **7.2** | **3.6** |
 
-> 💡 SRTF gives the optimal (minimum) average waiting time among all scheduling algorithms.
+> ≡ƒÆí SRTF gives the optimal (minimum) average waiting time among all scheduling algorithms.
 
 </details>
 
 ---
 
-### 📊 Problem 4: Priority Scheduling (Non-Preemptive)
+### ≡ƒôè Problem 4: Priority Scheduling (Non-Preemptive)
 
 **Problem Statement:**
 
@@ -480,7 +678,7 @@ Consider the following set of processes with their arrival times, burst times, a
 
 **Using non-preemptive priority scheduling, calculate the Gantt chart and all metrics.**
 
-<details><summary>✅ Answer</summary>
+<details><summary>Γ£à Answer</summary>
 
 **Step 1: Execution trace (non-preemptive priority)**
 
@@ -500,7 +698,7 @@ Consider the following set of processes with their arrival times, burst times, a
 
 **Step 3: Calculate all metrics**
 
-| Process | AT | BT | Priority | CT  | TAT = CT−AT | WT = TAT−BT |
+| Process | AT | BT | Priority | CT  | TAT = CTΓêÆAT | WT = TATΓêÆBT |
 |---------|----|----|----------|-----|-------------|--------------|
 | P1      | 0  | 6  | 3        | 6   | 6           | 0            |
 | P2      | 1  | 3  | 1        | 9   | 8           | 5            |
@@ -524,13 +722,13 @@ Consider the following set of processes with their arrival times, burst times, a
 | P5      | 5  | 4  | 5   | 23  | 18   | 14  |
 | **Avg** |    |    |     |     | **11.4** | **6.8** |
 
-> ⚠️ Notice P5 has the longest wait (14) due to its low priority (5). In a real system, **aging** would be used to gradually increase P5's priority and prevent starvation.
+> ΓÜá∩╕Å Notice P5 has the longest wait (14) due to its low priority (5). In a real system, **aging** would be used to gradually increase P5's priority and prevent starvation.
 
 </details>
 
 ---
 
-### 📊 Problem 5: Round Robin (RR)
+### ≡ƒôè Problem 5: Round Robin (RR)
 
 **Problem Statement:**
 
@@ -545,30 +743,30 @@ Consider the following set of processes with **time quantum q = 3**:
 
 **Using Round Robin scheduling with q = 3, show the queue state at each step and calculate all metrics.**
 
-<details><summary>✅ Answer</summary>
+<details><summary>Γ£à Answer</summary>
 
 **Step-by-step execution with queue tracking:**
 
 | Time | Action | Running | Remaining Bursts | Ready Queue (order) |
 |------|--------|---------|------------------|---------------------|
-| 0    | P1 starts | P1 | P1:7 | — |
+| 0    | P1 starts | P1 | P1:7 | ΓÇö |
 | 1    | P2 arrives | P1 | P1:6, P2:4 | [P2] |
 | 2    | P3 arrives | P1 | P1:5, P2:4, P3:2 | [P2, P3] |
-| 3    | P1 quantum expires, P4 arrives | — | P1:4, P2:4, P3:2, P4:5 | [P2, P3, P4, P1] |
-| 3    | P2 starts | P2 | — | [P3, P4, P1] |
-| 6    | P2 quantum expires (1 left) | — | P1:4, P2:1, P3:2, P4:5 | [P3, P4, P1, P2] |
-| 6    | P3 starts | P3 | — | [P4, P1, P2] |
-| 8    | P3 finishes (burst=2 < q=3) | — | P1:4, P2:1, P4:5 | [P4, P1, P2] |
-| 8    | P4 starts | P4 | — | [P1, P2] |
-| 11   | P4 quantum expires (2 left) | — | P1:4, P2:1, P4:2 | [P1, P2, P4] |
-| 11   | P1 starts | P1 | — | [P2, P4] |
-| 14   | P1 quantum expires (1 left) | — | P1:1, P2:1, P4:2 | [P2, P4, P1] |
-| 14   | P2 starts | P2 | — | [P4, P1] |
-| 15   | P2 finishes (1 left < q) | — | P1:1, P4:2 | [P4, P1] |
-| 15   | P4 starts | P4 | — | [P1] |
-| 17   | P4 finishes (2 left < q) | — | P1:1 | [P1] |
-| 17   | P1 starts | P1 | — | — |
-| 18   | P1 finishes | — | All done | — |
+| 3    | P1 quantum expires, P4 arrives | ΓÇö | P1:4, P2:4, P3:2, P4:5 | [P2, P3, P4, P1] |
+| 3    | P2 starts | P2 | ΓÇö | [P3, P4, P1] |
+| 6    | P2 quantum expires (1 left) | ΓÇö | P1:4, P2:1, P3:2, P4:5 | [P3, P4, P1, P2] |
+| 6    | P3 starts | P3 | ΓÇö | [P4, P1, P2] |
+| 8    | P3 finishes (burst=2 < q=3) | ΓÇö | P1:4, P2:1, P4:5 | [P4, P1, P2] |
+| 8    | P4 starts | P4 | ΓÇö | [P1, P2] |
+| 11   | P4 quantum expires (2 left) | ΓÇö | P1:4, P2:1, P4:2 | [P1, P2, P4] |
+| 11   | P1 starts | P1 | ΓÇö | [P2, P4] |
+| 14   | P1 quantum expires (1 left) | ΓÇö | P1:1, P2:1, P4:2 | [P2, P4, P1] |
+| 14   | P2 starts | P2 | ΓÇö | [P4, P1] |
+| 15   | P2 finishes (1 left < q) | ΓÇö | P1:1, P4:2 | [P4, P1] |
+| 15   | P4 starts | P4 | ΓÇö | [P1] |
+| 17   | P4 finishes (2 left < q) | ΓÇö | P1:1 | [P1] |
+| 17   | P1 starts | P1 | ΓÇö | ΓÇö |
+| 18   | P1 finishes | ΓÇö | All done | ΓÇö |
 
 **Gantt Chart:**
 
@@ -579,7 +777,7 @@ Consider the following set of processes with **time quantum q = 3**:
 
 **Calculations:**
 
-| Process | AT | BT | CT  | TAT = CT−AT | WT = TAT−BT |
+| Process | AT | BT | CT  | TAT = CTΓêÆAT | WT = TATΓêÆBT |
 |---------|----|----|-----|-------------|--------------|
 | P1      | 0  | 7  | 18  | 18          | 11           |
 | P2      | 1  | 4  | 15  | 14          | 10           |
@@ -601,11 +799,11 @@ Consider the following set of processes with **time quantum q = 3**:
 | P4      | 3  | 5  | 17  | 14  | 9   |
 | **Avg** |    |    |     | **13.0** | **8.5** |
 
-> 💡 **Observations:**
+> ≡ƒÆí **Observations:**
 > - P3 finishes early because its burst (2) is less than the quantum (3)
 > - RR has higher average waiting time than SJF/SRTF but provides better response time
 > - If q were very large (e.g., q=10), this would degenerate into FCFS
-> - Each process gets the CPU at most every (n−1)×q = 3×3 = 9 time units
+> - Each process gets the CPU at most every (nΓêÆ1)├ùq = 3├ù3 = 9 time units
 
 </details>
 
@@ -613,7 +811,7 @@ Consider the following set of processes with **time quantum q = 3**:
 
 ---
 
-## 🎯 Quick Reference: Algorithm Comparison
+## ≡ƒÄ» Quick Reference: Algorithm Comparison
 
 | Algorithm | Type | Starvation? | Convoy Effect? | Optimal? | Best For |
 |-----------|------|-------------|----------------|----------|----------|
@@ -626,4 +824,4 @@ Consider the following set of processes with **time quantum q = 3**:
 
 ---
 
-> 🏆 **You've reached the end of the Question Bank!** If you can answer all of these questions confidently, you're well-prepared for your OS exam. Go back and review any topics where you struggled. Good luck! 🍀
+> ≡ƒÅå **You've reached the end of the Question Bank!** If you can answer all of these questions confidently, you're well-prepared for your OS exam. Go back and review any topics where you struggled. Good luck! ≡ƒìÇ
