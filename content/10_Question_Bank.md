@@ -1,272 +1,246 @@
-# 📝 Task Scheduling Question Bank
+# 📝 OS Exam Question Bank
 
-This section contains multiple choice questions and fully worked problems exclusively for CPU Scheduling.
+## How to Use This Section
+This question bank covers all topics in the OS syllabus and is organized to help you test your understanding of the core concepts:
+- **Part 1 — Multiple Choice (MCQ):** Questions organized by chapter.
+- **Part 2 — True or False:** Quick statements to test your intuition.
+- **Part 3 — Scheduling Problems:** Fully worked CPU scheduling math problems with Gantt charts.
 
-### 📘 Chapter 5: CPU Scheduling Concepts
+> [!tip] Tip
+> Click on the **"✅ Answer"** toggle below each question to reveal the explanation!
 
 ---
 
-**Q33.** The CPU scheduler is also known as the ___?
+## Part 1: Multiple Choice Questions (MCQ)
 
+### 📘 Chapter 1: OS Overview
+
+**Q1.** What is the primary purpose of an operating system?
+- A) To compile source code
+- B) To manage hardware resources and provide services for applications
+- C) To provide internet access
+- D) To render graphics
+
+<details><summary>✅ Answer</summary>
+**B) To manage hardware resources and provide services for applications** — The OS is an intermediary between the user and hardware, allocating resources like CPU and memory.
+</details>
+
+**Q2.** The purpose of dual-mode operation (user mode and kernel mode) is to:
+- A) Run the CPU twice as fast
+- B) Protect the OS and hardware from errant user programs
+- C) Allow two users to log in simultaneously
+- D) Increase memory capacity
+
+<details><summary>✅ Answer</summary>
+**B) Protect the OS and hardware from errant user programs** — A mode bit distinguishes user mode from kernel mode. Privileged instructions can only run in kernel mode.
+</details>
+
+**Q3.** Which of the following is NOT an operating system service?
+- A) Program execution
+- B) Error detection
+- C) File-system manipulation
+- D) Compiling code
+
+<details><summary>✅ Answer</summary>
+**D) Compiling code** — A compiler is a separate application program, not an OS service.
+</details>
+
+---
+
+### 📘 Chapter 2: OS Structures
+
+**Q4.** A system call is typically invoked through a:
+- A) Hardware interrupt
+- B) Software interrupt (trap)
+- C) Reboot sequence
+- D) Direct memory access (DMA)
+
+<details><summary>✅ Answer</summary>
+**B) Software interrupt (trap)** — Programs execute a special instruction to trigger a trap, switching the CPU to kernel mode to perform the OS service.
+</details>
+
+**Q5.** The system call interface maintains a table indexed by:
+- A) Process IDs
+- B) System call numbers
+- C) Memory addresses
+- D) File sizes
+
+<details><summary>✅ Answer</summary>
+**B) System call numbers** — Each system call (like read, write, exit) is assigned a unique number. The table maps these numbers to the kernel implementation.
+</details>
+
+**Q6.** Which of the following is NOT a category of system calls?
+- A) Process control
+- B) File management
+- C) Application UI design
+- D) Device management
+
+<details><summary>✅ Answer</summary>
+**C) Application UI design** — The categories include process control, file management, device management, information maintenance, communications, and protection.
+</details>
+
+---
+
+### 📘 Chapter 3: Processes
+
+**Q7.** Which of the following is NOT a valid process state?
+- A) Ready
+- B) Waiting
+- C) Compiling
+- D) Running
+
+<details><summary>✅ Answer</summary>
+**C) Compiling** — The five standard process states are: New, Ready, Running, Waiting, and Terminated.
+</details>
+
+**Q8.** What does the Process Control Block (PCB) store?
+- A) The source code of the program
+- B) Process state, program counter, CPU registers, and scheduling info
+- C) User passwords
+- D) The compiler logs
+
+<details><summary>✅ Answer</summary>
+**B)** — The PCB is the data structure the OS uses to represent and track a process.
+</details>
+
+**Q9.** Context switching involves:
+- A) Deleting the old process
+- B) Saving the state of the current process and loading the state of the next process
+- C) Re-compiling the program
+- D) Moving the process to disk
+
+<details><summary>✅ Answer</summary>
+**B)** — During a context switch, the OS saves the PCB of the current process and restores the PCB of the next process to be scheduled. This takes time and is considered overhead.
+</details>
+
+---
+
+### 📘 Chapter 4: Threads & Concurrency
+
+**Q10.** The main difference between a process and a thread is that:
+- A) Threads cannot run on multiple cores
+- B) Threads share the memory and resources of their parent process
+- C) Processes are faster to create
+- D) Threads do not have their own program counter
+
+<details><summary>✅ Answer</summary>
+**B) Threads share the memory and resources of their parent process** — While processes have entirely separate address spaces, threads within the same process share code, data, and open files.
+</details>
+
+**Q11.** Distributing subsets of the same data across multiple cores and performing the same operation on each is called:
+- A) Task parallelism
+- B) Data parallelism
+- C) Serial execution
+- D) Concurrency
+
+<details><summary>✅ Answer</summary>
+**B) Data parallelism** — For example, splitting a large array into four chunks and having four threads process them simultaneously. Task parallelism is when different threads perform completely different tasks.
+</details>
+
+**Q12.** In the Many-to-One multithreading model:
+- A) Each user thread maps to its own kernel thread
+- B) Many user threads map to a single kernel thread
+- C) There are no kernel threads
+- D) Threads are created automatically by the compiler
+
+<details><summary>✅ Answer</summary>
+**B)** — In Many-to-One, if one user thread makes a blocking system call, all threads are blocked because there is only one kernel thread handling them.
+</details>
+
+---
+
+### 📘 Chapter 5 & 6: CPU Scheduling
+
+**Q13.** The CPU scheduler is also known as the:
 - A) Long-term scheduler
 - B) Short-term scheduler
-- C) Medium-term scheduler
-- D) I/O scheduler
+- C) Disk scheduler
+- D) Network scheduler
 
 <details><summary>✅ Answer</summary>
-
-**B) Short-term scheduler** — The CPU scheduler (short-term scheduler) selects a process from the ready queue and allocates the CPU to it. It runs very frequently (milliseconds) and must be extremely fast.
-
+**B) Short-term scheduler** — It selects which process should execute next from the ready queue and allocates the CPU to it.
 </details>
 
----
-
-**Q34.** CPU scheduling can happen in all of the following transitions EXCEPT ___?
-
-- A) Running → Waiting
-- B) Running → Ready
-- C) Ready → Running
-- D) New → Terminated (directly)
-
-<details><summary>✅ Answer</summary>
-
-**D) New → Terminated (directly)** — CPU scheduling decisions occur during four transitions: (1) Running→Waiting, (2) Running→Ready, (3) Waiting→Ready, (4) Running→Terminated. A process cannot go directly from New to Terminated.
-
-</details>
-
----
-
-**Q35.** Dispatch latency is ___?
-
-- A) The time a process waits in the ready queue
-- B) The time it takes for the dispatcher to stop one process and start another
-- C) The total execution time of a process
-- D) The time between process creation and termination
-
-<details><summary>✅ Answer</summary>
-
-**B) The time it takes for the dispatcher to stop one process and start another** — Dispatch latency is the time the dispatcher takes to stop one process and start running another. It includes context switching, switching to user mode, and jumping to the correct location in the user program.
-
-</details>
-
----
-
-**Q36.** Which scheduling criterion should be MAXIMIZED?
-
-- A) Waiting time
-- B) Turnaround time
-- C) CPU utilization and throughput
-- D) Response time
-
-<details><summary>✅ Answer</summary>
-
-**C) CPU utilization and throughput** — We want to maximize CPU utilization (keep CPU busy) and throughput (number of processes completed per time unit). We want to minimize turnaround time, waiting time, and response time.
-
-</details>
-
----
-
-**Q37.** The dispatcher does all of the following EXCEPT ___?
-
-- A) Switching context
-- B) Switching to user mode
-- C) Selecting which process to run next
-- D) Jumping to the proper location in the user program
-
-<details><summary>✅ Answer</summary>
-
-**C) Selecting which process to run next** — The dispatcher gives control of the CPU to the process selected by the short-term scheduler. It performs context switching, switching to user mode, and jumping to the correct location. The scheduler (not the dispatcher) selects which process runs next.
-
-</details>
-
----
-
-**Q38.** Preemptive scheduling means ___?
-
-- A) A process runs until it voluntarily gives up the CPU
+**Q14.** Preemptive scheduling means:
+- A) A process runs until it voluntarily yields the CPU
 - B) The OS can forcibly take the CPU away from a running process
-- C) Only one process can ever run
-- D) Scheduling only happens at boot time
+- C) Only the longest jobs get the CPU
+- D) Processes cannot be interrupted
 
 <details><summary>✅ Answer</summary>
-
-**B) The OS can forcibly take the CPU away from a running process** — In preemptive scheduling, the OS can interrupt a running process (e.g., when a higher-priority process arrives or a time quantum expires) and allocate the CPU to another process.
-
+**B) The OS can forcibly take the CPU away from a running process** — This usually happens when a timer interrupt goes off (like in Round Robin) or a higher priority process arrives.
 </details>
 
----
-
-**Q39.** Non-preemptive scheduling occurs only when a process ___?
-
-- A) Gets a higher priority
-- B) Switches from running to waiting or terminates
-- C) Enters the ready queue
-- D) Receives a signal
+**Q15.** Which algorithm minimizes average waiting time but is difficult to implement because it requires knowing the future burst length?
+- A) First-Come, First-Served (FCFS)
+- B) Shortest Job First (SJF)
+- C) Round Robin (RR)
+- D) Priority Scheduling
 
 <details><summary>✅ Answer</summary>
-
-**B) Switches from running to waiting or terminates** — Non-preemptive (cooperative) scheduling only makes scheduling decisions when a process voluntarily gives up the CPU — either by switching to the waiting state (e.g., I/O request) or by terminating.
-
+**B) Shortest Job First (SJF)** — SJF is provably optimal for minimizing average waiting time, but predicting the exact length of the next CPU burst is challenging.
 </details>
 
----
-
-**Q40.** Turnaround time is defined as ___?
-
-- A) Time spent waiting in the ready queue
-- B) Time from submission of a process to its completion
-- C) Time the CPU is idle
-- D) Time spent in I/O
-
-<details><summary>✅ Answer</summary>
-
-**B) Time from submission of a process to its completion** — Turnaround time = Completion time − Arrival time. It includes all time spent waiting in the ready queue, executing on the CPU, and doing I/O.
-
-</details>
-
----
-
-### 📘 Chapter 6: Scheduling Algorithms
-
----
-
-**Q41.** FCFS (First-Come, First-Served) scheduling may cause ___?
-
-- A) Starvation
-- B) The convoy effect
-- C) Deadlock
-- D) Thrashing
-
-<details><summary>✅ Answer</summary>
-
-**B) The convoy effect** — In FCFS, if a long CPU-bound process arrives first, all shorter processes behind it must wait, causing the "convoy effect" — short processes pile up behind a long one, leading to poor average waiting time.
-
-</details>
-
----
-
-**Q42.** SJF (Shortest Job First) is optimal because ___?
-
-- A) It is the simplest algorithm
-- B) It gives the minimum average waiting time for a given set of processes
-- C) It prevents deadlock
-- D) It uses the most memory
-
-<details><summary>✅ Answer</summary>
-
-**B) It gives the minimum average waiting time for a given set of processes** — SJF is provably optimal: by scheduling the shortest jobs first, it minimizes the average waiting time. However, it requires knowing (or predicting) the next CPU burst length, which is its main challenge.
-
-</details>
-
----
-
-**Q43.** In SRTF (Shortest Remaining Time First), preemption occurs when ___?
-
-- A) A process finishes I/O
-- B) A new process arrives with a shorter remaining burst than the currently running process
-- C) The time quantum expires
-- D) The process voluntarily yields
-
-<details><summary>✅ Answer</summary>
-
-**B) A new process arrives with a shorter remaining burst than the currently running process** — SRTF is the preemptive version of SJF. When a new process arrives, if its burst time is shorter than the remaining time of the currently executing process, the current process is preempted.
-
-</details>
-
----
-
-**Q44.** In Round Robin with quantum q, the maximum waiting time for a process is ___?
-
-- A) (n) × q
-- B) (n − 1) × q
-- C) q
-- D) n × (q + context switch time)
-
-<details><summary>✅ Answer</summary>
-
-**B) (n − 1) × q** — In Round Robin, if there are n processes in the ready queue, each process waits at most (n − 1) × q time units before getting the CPU again. No process waits more than this between consecutive turns.
-
-</details>
-
----
-
-**Q45.** Aging is used to prevent ___?
-
-- A) Deadlock
+**Q16.** Aging is used to prevent:
+- A) Thrashing
 - B) Starvation
-- C) Fragmentation
-- D) Thrashing
+- C) Context switching
+- D) High CPU utilization
 
 <details><summary>✅ Answer</summary>
-
-**B) Starvation** — Aging is a technique where the priority of a process is gradually increased the longer it waits in the ready queue. This prevents indefinite blocking (starvation) of low-priority processes.
-
+**B) Starvation** — Aging gradually increases the priority of a process the longer it waits in the ready queue, ensuring that low-priority processes eventually get to run.
 </details>
 
 ---
 
-**Q46.** Which scheduling algorithm gives the best average response time for interactive systems?
+### 📘 Chapter 7 & 8: Memory Management & Deadlocks
 
-- A) FCFS
-- B) SJF
-- C) Round Robin
-- D) Priority (non-preemptive)
+**Q17.** Virtual memory allows:
+- A) The CPU to run twice as fast
+- B) The execution of processes that are larger than the physical RAM
+- C) The hard drive to spin faster
+- D) Deletion of cache memory
 
 <details><summary>✅ Answer</summary>
+**B)** — By keeping only the actively used "pages" of a program in RAM and swapping the rest to the disk, virtual memory creates the illusion of infinite memory.
+</details>
 
-**C) Round Robin** — Round Robin is designed for time-sharing/interactive systems. By giving each process a small time quantum, it ensures all processes get regular CPU time, providing good response times.
+**Q18.** Which of the following is NOT one of the four necessary conditions for a deadlock?
+- A) Mutual exclusion
+- B) Hold and wait
+- C) Preemption
+- D) Circular wait
 
+<details><summary>✅ Answer</summary>
+**C) Preemption** — The condition is actually **No Preemption** (resources cannot be forcibly taken). If preemption is allowed, deadlocks can be resolved.
 </details>
 
 ---
 
-**Q47.** If the time quantum q in Round Robin is very large, it degenerates into ___?
+## Part 2: True or False Questions
 
-- A) SJF
-- B) FCFS
-- C) Priority scheduling
-- D) SRTF
+**T/F 1.** Multitasking requires a computer to have multiple CPU cores.
+<details><summary>✅ Answer</summary>**False** — Multitasking can happen on a single CPU core via rapid time-sharing (context switching), giving the illusion of simultaneous execution.</details>
 
-<details><summary>✅ Answer</summary>
+**T/F 2.** Creating a new thread is generally faster and consumes less resources than creating a completely new process.
+<details><summary>✅ Answer</summary>**True** — Threads are lightweight and share their parent process's memory space, avoiding the massive overhead of process creation.</details>
 
-**B) FCFS** — If q is very large (larger than the longest burst), no process is ever preempted by the timer, so processes run to completion in arrival order — exactly like FCFS.
+**T/F 3.** FCFS scheduling can suffer from the "convoy effect", where short processes get stuck waiting behind a very long CPU-bound process.
+<details><summary>✅ Answer</summary>**True** — Because FCFS is non-preemptive, a long process will hold the CPU until it finishes, forcing all others to wait.</details>
 
-</details>
+**T/F 4.** A process in the "Ready" state is waiting for an I/O event to complete.
+<details><summary>✅ Answer</summary>**False** — A process waiting for I/O is in the **Waiting** state. The **Ready** state means it is fully loaded in memory and just waiting for the CPU to be assigned to it.</details>
 
----
+**T/F 5.** In the One-to-One multithreading model, if one thread is blocked waiting for I/O, other threads in the same process can continue to execute.
+<details><summary>✅ Answer</summary>**True** — Because each user thread maps to a distinct kernel thread, the kernel can simply schedule another thread from the same process.</details>
 
-**Q48.** The exponential averaging formula for predicting next CPU burst is ___?
-
-- A) τ(n+1) = α × t(n) + (1 − α) × τ(n)
-- B) τ(n+1) = t(n) + τ(n)
-- C) τ(n+1) = t(n) × τ(n)
-- D) τ(n+1) = α × τ(n)
-
-<details><summary>✅ Answer</summary>
-
-**A) τ(n+1) = α × t(n) + (1 − α) × τ(n)** — Where t(n) is the actual length of the nth CPU burst, τ(n) is the predicted value, and α (0 ≤ α ≤ 1) controls the weight of recent vs. past history. When α = 0, history dominates; when α = 1, only the last burst matters.
-
-</details>
+**T/F 6.** The time it takes for the dispatcher to stop one process and start another is called "Dispatch Latency".
+<details><summary>✅ Answer</summary>**True** — This is pure overhead that system designers try to minimize.</details>
 
 ---
 
 
-
-
-**Q52.** If α = 0 in exponential averaging, the predicted next burst ___?
-
-- A) Equals the most recent burst
-- B) Ignores recent history and equals the initial guess τ(0) throughout
-- C) Becomes zero
-- D) Doubles the previous prediction
-
-<details><summary>✅ Answer</summary>
-
-**B) Ignores recent history and equals the initial guess τ(0) throughout** — When α = 0, the formula becomes τ(n+1) = τ(n) = ... = τ(0). The actual burst times are never factored in, and the prediction never changes from the initial value.
-
-</details>
-
----
+## Part 3: Scheduling Problems (Fully Worked)
 
 ## Part 4: Scheduling Problems (Fully Worked)
 
