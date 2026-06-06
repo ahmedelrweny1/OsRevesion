@@ -101,6 +101,30 @@ System calls can be grouped roughly into six major categories:
    * Get/set permissions
    * Allow/deny user access
 
+### Examples of Windows and Unix System Calls
+
+| Category | Windows | Unix |
+|----------|---------|------|
+| **Process Control** | `CreateProcess()` | `fork()` |
+| | `ExitProcess()` | `exit()` |
+| | `WaitForSingleObject()` | `wait()` |
+| **File Manipulation** | `CreateFile()` | `open()` |
+| | `ReadFile()` | `read()` |
+| | `WriteFile()` | `write()` |
+| | `CloseHandle()` | `close()` |
+| **Device Manipulation** | `SetConsoleMode()` | `ioctl()` |
+| | `ReadConsole()` | `read()` |
+| | `WriteConsole()` | `write()` |
+| **Information Maintenance** | `GetCurrentProcessID()` | `getpid()` |
+| | `SetTimer()` | `alarm()` |
+| | `Sleep()` | `sleep()` |
+| **Communication** | `CreatePipe()` | `pipe()` |
+| | `CreateFileMapping()` | `shmget()` |
+| | `MapViewOfFile()` | `mmap()` |
+| **Protection** | `SetFileSecurity()` | `chmod()` |
+| | `InitializeSecurityDescriptor()` | `umask()` |
+| | `SetSecurityDescriptorGroup()` | `chown()` |
+
 ---
 
 ## Standard C Library Example
