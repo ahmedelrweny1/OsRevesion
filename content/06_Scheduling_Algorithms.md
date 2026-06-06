@@ -117,56 +117,7 @@ $$
 
 ---
 
-## 3. Exponential Averaging — Predicting CPU Bursts
-
-Since we **can't know** the exact length of the next CPU burst, we **predict** it using past behavior. The technique used is **Exponential Averaging**.
-
-### The Formula
-
-$$
-\tau_{n+1} = \alpha \cdot t_n + (1 - \alpha) \cdot \tau_n
-$$
-
-Where:
-* $\tau_{n+1}$ = predicted value for the **next** burst
-* $t_n$ = **actual** length of the $n^{th}$ burst (observed)
-* $\tau_n$ = **predicted** value of the $n^{th}$ burst (previous prediction)
-* $\alpha$ = smoothing factor, $0 \leq \alpha \leq 1$
-
-### Understanding Alpha ($\alpha$)
-
-| Value | Behavior |
-| :--- | :--- |
-| $\alpha = 0$ | $\tau_{n+1} = \tau_n$ — Prediction **never changes**, history is ignored completely |
-| $\alpha = 1$ | $\tau_{n+1} = t_n$ — Only the **last actual burst** matters, all history forgotten |
-| $\alpha = 0.5$ | **Balanced** — equal weight to recent observation and past prediction |
-
-> [!tip] Exam Tip
-> $\alpha = 0.5$ is the most commonly tested value. It means each prediction is the simple **average** of the last actual burst and the last prediction.
-
-### Worked Example: $\alpha = 0.5$, $\tau_0 = 10$
-
-Given actual burst sequence: **6, 4, 6, 4, 13, 13, 13**
-
-We calculate each prediction step by step using $\tau_{n+1} = 0.5 \times t_n + 0.5 \times \tau_n$:
-
-| Step | Actual Burst ($t_n$) | Previous Prediction ($\tau_n$) | Calculation | New Prediction ($\tau_{n+1}$) |
-| :--- | :--- | :--- | :--- | :--- |
-| 0 | — | — | Given | $\tau_0 = \mathbf{10}$ |
-| 1 | $t_0 = 6$ | $\tau_0 = 10$ | $0.5 \times 6 + 0.5 \times 10 = 3 + 5$ | $\tau_1 = \mathbf{8}$ |
-| 2 | $t_1 = 4$ | $\tau_1 = 8$ | $0.5 \times 4 + 0.5 \times 8 = 2 + 4$ | $\tau_2 = \mathbf{6}$ |
-| 3 | $t_2 = 6$ | $\tau_2 = 6$ | $0.5 \times 6 + 0.5 \times 6 = 3 + 3$ | $\tau_3 = \mathbf{6}$ |
-| 4 | $t_3 = 4$ | $\tau_3 = 6$ | $0.5 \times 4 + 0.5 \times 6 = 2 + 3$ | $\tau_4 = \mathbf{5}$ |
-| 5 | $t_4 = 13$ | $\tau_4 = 5$ | $0.5 \times 13 + 0.5 \times 5 = 6.5 + 2.5$ | $\tau_5 = \mathbf{9}$ |
-| 6 | $t_5 = 13$ | $\tau_5 = 9$ | $0.5 \times 13 + 0.5 \times 9 = 6.5 + 4.5$ | $\tau_6 = \mathbf{11}$ |
-| 7 | $t_6 = 13$ | $\tau_6 = 11$ | $0.5 \times 13 + 0.5 \times 11 = 6.5 + 5.5$ | $\tau_7 = \mathbf{12}$ |
-
-> [!note] Observation
-> Notice how the prediction **gradually converges** toward the actual value. When the actual bursts suddenly jumped to 13, the prediction lagged behind (9 → 11 → 12), slowly catching up. With a higher $\alpha$, it would catch up faster but be more volatile.
-
----
-
-## 4. SRTF — Shortest Remaining Time First (Preemptive SJF)
+## 3. SJF Preemptive — Shortest Remaining Time First (SRTF)
 
 SRTF is the **preemptive version** of SJF. Whenever a **new process arrives**, the scheduler compares its burst time with the **remaining time** of the currently running process. If the new process is shorter, it **preempts** (interrupts) the current process.
 
@@ -231,71 +182,56 @@ $$
 
 ---
 
-## 5. Priority Scheduling
+## 4. Exponential Averaging — Predicting CPU Bursts
 
-Each process is assigned a **priority number**. The CPU is allocated to the process with the **highest priority**.
+Since we **can't know** the exact length of the next CPU burst, we **predict** it using past behavior. The technique used is **Exponential Averaging**.
 
-**Convention:** Smallest integer = **highest** priority (e.g., priority 1 > priority 5).
-
-**Properties:**
-* Can be **preemptive** or **nonpreemptive**
-* SJF is a special case of priority scheduling where $\text{priority} = \frac{1}{\text{predicted next burst time}}$
-
-### Priority Scheduling Example (Nonpreemptive)
-
-All processes arrive at time 0:
-
-| Process | Burst Time | Priority |
-| :--- | :--- | :--- |
-| P1 | 10 | 3 |
-| P2 | 1 | 1 |
-| P3 | 2 | 4 |
-| P4 | 1 | 5 |
-| P5 | 5 | 2 |
-
-**Execution order** (sorted by priority, smallest number = highest priority):
-P2 (pri=1) → P5 (pri=2) → P1 (pri=3) → P3 (pri=4) → P4 (pri=5)
-
-**Gantt Chart:**
-
-| P2 | P5 | P1 | P3 | P4 |
-| :---: | :---: | :---: | :---: | :---: |
-| 0 — 1 | 1 ——— 6 | 6 ———— 16 | 16 —— 18 | 18 — 19 |
-
-**Calculations:**
-
-| Process | Completion | Turnaround | Waiting Time |
-| :--- | :--- | :--- | :--- |
-| P1 | 16 | 16 − 0 = 16 | 16 − 10 = **6** |
-| P2 | 1 | 1 − 0 = 1 | 1 − 1 = **0** |
-| P3 | 18 | 18 − 0 = 18 | 18 − 2 = **16** |
-| P4 | 19 | 19 − 0 = 19 | 19 − 1 = **18** |
-| P5 | 6 | 6 − 0 = 6 | 6 − 5 = **1** |
+### The Formula
 
 $$
-\text{Average Waiting Time} = \frac{6 + 0 + 16 + 18 + 1}{5} = \frac{41}{5} = \mathbf{8.2 \text{ ms}}
+\tau_{n+1} = \alpha \cdot t_n + (1 - \alpha) \cdot \tau_n
 $$
 
-### Problem: Starvation
+Where:
+* $\tau_{n+1}$ = predicted value for the **next** burst
+* $t_n$ = **actual** length of the $n^{th}$ burst (observed)
+* $\tau_n$ = **predicted** value of the $n^{th}$ burst (previous prediction)
+* $\alpha$ = smoothing factor, $0 \leq \alpha \leq 1$
 
-**Starvation** occurs when low-priority processes **wait indefinitely** because higher-priority processes keep arriving and jumping ahead in the queue.
+### Understanding Alpha ($\alpha$)
 
-* A low-priority process might **never execute** if there is always a higher-priority process ready
+| Value | Behavior |
+| :--- | :--- |
+| $\alpha = 0$ | $\tau_{n+1} = \tau_n$ — Prediction **never changes**, history is ignored completely |
+| $\alpha = 1$ | $\tau_{n+1} = t_n$ — Only the **last actual burst** matters, all history forgotten |
+| $\alpha = 0.5$ | **Balanced** — equal weight to recent observation and past prediction |
 
-### Solution: Aging
+> [!tip] Exam Tip
+> $\alpha = 0.5$ is the most commonly tested value. It means each prediction is the simple **average** of the last actual burst and the last prediction.
 
-**Aging** gradually **increases the priority** of processes that have been waiting for a long time.
+### Worked Example: $\alpha = 0.5$, $\tau_0 = 10$
 
-* **Example policy:** Increase priority by 1 every **15 minutes**
-* A process starting at priority 127 will eventually reach priority 0 (highest) after sufficient waiting time
-* This **guarantees** that every process will eventually run
+Given actual burst sequence: **6, 4, 6, 4, 13, 13, 13**
 
-> [!important] Starvation + Aging
-> Whenever you mention priority scheduling in an exam, always discuss the **starvation problem** and the **aging solution**. They are inseparable concepts.
+We calculate each prediction step by step using $\tau_{n+1} = 0.5 \times t_n + 0.5 \times \tau_n$:
+
+| Step | Actual Burst ($t_n$) | Previous Prediction ($\tau_n$) | Calculation | New Prediction ($\tau_{n+1}$) |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | — | — | Given | $\tau_0 = \mathbf{10}$ |
+| 1 | $t_0 = 6$ | $\tau_0 = 10$ | $0.5 \times 6 + 0.5 \times 10 = 3 + 5$ | $\tau_1 = \mathbf{8}$ |
+| 2 | $t_1 = 4$ | $\tau_1 = 8$ | $0.5 \times 4 + 0.5 \times 8 = 2 + 4$ | $\tau_2 = \mathbf{6}$ |
+| 3 | $t_2 = 6$ | $\tau_2 = 6$ | $0.5 \times 6 + 0.5 \times 6 = 3 + 3$ | $\tau_3 = \mathbf{6}$ |
+| 4 | $t_3 = 4$ | $\tau_3 = 6$ | $0.5 \times 4 + 0.5 \times 6 = 2 + 3$ | $\tau_4 = \mathbf{5}$ |
+| 5 | $t_4 = 13$ | $\tau_4 = 5$ | $0.5 \times 13 + 0.5 \times 5 = 6.5 + 2.5$ | $\tau_5 = \mathbf{9}$ |
+| 6 | $t_5 = 13$ | $\tau_5 = 9$ | $0.5 \times 13 + 0.5 \times 9 = 6.5 + 4.5$ | $\tau_6 = \mathbf{11}$ |
+| 7 | $t_6 = 13$ | $\tau_6 = 11$ | $0.5 \times 13 + 0.5 \times 11 = 6.5 + 5.5$ | $\tau_7 = \mathbf{12}$ |
+
+> [!note] Observation
+> Notice how the prediction **gradually converges** toward the actual value. When the actual bursts suddenly jumped to 13, the prediction lagged behind (9 → 11 → 12), slowly catching up. With a higher $\alpha$, it would catch up faster but be more volatile.
 
 ---
 
-## 6. Round Robin (RR)
+## 5. Round Robin (RR)
 
 Each process gets a small unit of CPU time called a **time quantum** (or **time slice**, typically **10–100 milliseconds**). After the quantum expires, the process is **preempted** and placed at the **end** of the ready queue.
 
@@ -369,6 +305,70 @@ The quantum size $q$ has a **dramatic effect** on RR performance:
 
 ---
 
+## 6. Priority Scheduling
+
+Each process is assigned a **priority number**. The CPU is allocated to the process with the **highest priority**.
+
+**Convention:** Smallest integer = **highest** priority (e.g., priority 1 > priority 5).
+
+**Properties:**
+* Can be **preemptive** or **nonpreemptive**
+* SJF is a special case of priority scheduling where $\text{priority} = \frac{1}{\text{predicted next burst time}}$
+
+### Priority Scheduling Example (Nonpreemptive)
+
+All processes arrive at time 0:
+
+| Process | Burst Time | Priority |
+| :--- | :--- | :--- |
+| P1 | 10 | 3 |
+| P2 | 1 | 1 |
+| P3 | 2 | 4 |
+| P4 | 1 | 5 |
+| P5 | 5 | 2 |
+
+**Execution order** (sorted by priority, smallest number = highest priority):
+P2 (pri=1) → P5 (pri=2) → P1 (pri=3) → P3 (pri=4) → P4 (pri=5)
+
+**Gantt Chart:**
+
+| P2 | P5 | P1 | P3 | P4 |
+| :---: | :---: | :---: | :---: | :---: |
+| 0 — 1 | 1 ——— 6 | 6 ———— 16 | 16 —— 18 | 18 — 19 |
+
+**Calculations:**
+
+| Process | Completion | Turnaround | Waiting Time |
+| :--- | :--- | :--- | :--- |
+| P1 | 16 | 16 − 0 = 16 | 16 − 10 = **6** |
+| P2 | 1 | 1 − 0 = 1 | 1 − 1 = **0** |
+| P3 | 18 | 18 − 0 = 18 | 18 − 2 = **16** |
+| P4 | 19 | 19 − 0 = 19 | 19 − 1 = **18** |
+| P5 | 6 | 6 − 0 = 6 | 6 − 5 = **1** |
+
+$$
+\text{Average Waiting Time} = \frac{6 + 0 + 16 + 18 + 1}{5} = \frac{41}{5} = \mathbf{8.2 \text{ ms}}
+$$
+
+### Problem: Starvation
+
+**Starvation** occurs when low-priority processes **wait indefinitely** because higher-priority processes keep arriving and jumping ahead in the queue.
+
+* A low-priority process might **never execute** if there is always a higher-priority process ready
+
+### Solution: Aging
+
+**Aging** gradually **increases the priority** of processes that have been waiting for a long time.
+
+* **Example policy:** Increase priority by 1 every **15 minutes**
+* A process starting at priority 127 will eventually reach priority 0 (highest) after sufficient waiting time
+* This **guarantees** that every process will eventually run
+
+> [!important] Starvation + Aging
+> Whenever you mention priority scheduling in an exam, always discuss the **starvation problem** and the **aging solution**. They are inseparable concepts.
+
+---
+
 ## 7. Algorithm Comparison Table
 
 | Algorithm | Type | Preemptive? | Optimal? | Starvation? | Key Advantage | Key Disadvantage |
@@ -416,9 +416,9 @@ Use this to quickly identify which algorithm to apply in an exam question:
 | "First come first served" or "FIFO queue" | **FCFS** |
 | "Shortest burst first" (no preemption) | **SJF** |
 | "Shortest remaining time" or "preemptive SJF" | **SRTF** |
-| "Each process has a priority number" | **Priority** |
-| "Time quantum" or "time slice" | **Round Robin** |
 | "Predict next burst" or "exponential averaging" | **Exponential Averaging** formula |
+| "Time quantum" or "time slice" | **Round Robin** |
+| "Each process has a priority number" | **Priority** |
 
 > [!tip] Exam Checklist for Scheduling Problems
 > 1. ✅ Identify the algorithm from keywords in the question
